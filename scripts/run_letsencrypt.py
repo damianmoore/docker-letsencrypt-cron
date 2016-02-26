@@ -38,10 +38,13 @@ def renew_domains():
         if generate:
             print("Running letsencrypt for {}".format(domain))
 
+            server_param = '--server https://acme-v01.api.letsencrypt.org/directory'
+            if bool(os.environ.get('STAGING', False)):
+                server_param = '--staging'
+
             exit_code, result = commands.getstatusoutput('letsencrypt --standalone --standalone-supported-challenges\
-              http-01 --agree-tos --renew-by-default\
-              --server https://acme-v01.api.letsencrypt.org/directory\
-              --email $EMAIL -d {} certonly'.format(domain))
+              http-01 --agree-tos --renew-by-default {}\
+              --email $EMAIL -d {} certonly'.format(server_param, domain))
             if exit_code > 0:
                 print(result)
                 exit(1)
