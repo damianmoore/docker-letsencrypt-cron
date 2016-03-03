@@ -1,1 +1,1 @@
-0 3 * * * root sh /run_letsencrypt.py
+0 3 * * * root python /run_letsencrypt.py
