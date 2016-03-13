@@ -39,13 +39,13 @@ docker-compose up -d
 When you have your letsencrypt docker container and webserver set up, and if this is a new server, you probably want to run the certificate generation script immediately rather than waiting for the cron job:
 
 ```shell
-docker exec letsencrypt sh -c "/run_letsencrypt.py"
+docker exec letsencrypt python /run_letsencrypt.py
 ```
 
 If you need to debug a problem with your certificate generation process you should be careful not to run into Let's Encrypt's rate limits or you won't be able to try again for a week. You can do this by using their staging server through the use of the environment variable `STAGING`:
 
 ```shell
-docker exec letsencrypt sh -c "STAGING=1 /run_letsencrypt.py"
+docker exec letsencrypt python /run_letsencrypt.py
 ```
 
 At 3AM every day, a cron job will start the script, renewing the certificates that have less than 28 days remaining.
