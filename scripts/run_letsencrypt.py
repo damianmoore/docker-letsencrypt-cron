@@ -18,6 +18,8 @@ def ensure_dh_params():
 
 
 def renew_domains():
+    failure = False
+
     for domain in os.environ['DOMAINS'].split(' '):
         cert_path = os.path.join(cert_dir, domain, 'fullchain.pem')
         cert_copy_path = os.path.join(cert_copy_dir, '{}.pem'.format(domain))
@@ -47,10 +49,13 @@ def renew_domains():
               --email $EMAIL -d {} certonly'.format(server_param, domain))
             if exit_code > 0:
                 print(result)
-                exit(1)
+                failure = True
             else:
                 copy(key_path, key_copy_path)
                 copy(cert_path, cert_copy_path)
+
+    if failure:
+        exit(1)
 
 if __name__ == '__main__':
     ensure_dh_params()
