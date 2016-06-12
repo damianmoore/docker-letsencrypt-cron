@@ -44,7 +44,7 @@ def renew_domains():
             if bool(os.environ.get('STAGING', False)):
                 server_param = '--staging'
 
-            exit_code, result = commands.getstatusoutput('letsencrypt --standalone --standalone-supported-challenges\
+            exit_code, result = commands.getstatusoutput('certbot --standalone --standalone-supported-challenges\
               http-01 --agree-tos --renew-by-default {}\
               --email $EMAIL -d {} certonly'.format(server_param, domain))
             if exit_code > 0:
