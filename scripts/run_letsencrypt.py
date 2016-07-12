@@ -45,7 +45,7 @@ def renew_domains():
                 server_param = '--staging'
 
             exit_code, result = commands.getstatusoutput('certbot --standalone --standalone-supported-challenges\
-              http-01 --agree-tos --renew-by-default {}\
+              http-01 --agree-tos -t --renew-by-default {}\
               --email $EMAIL -d {} certonly'.format(server_param, domain))
             if exit_code > 0:
                 print(result)
