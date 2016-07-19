@@ -3,7 +3,7 @@ Create and automatically renew website certificates using the Let's Encrypt free
 
 This image will renew your certificates when they have less than 28 days remaining, and place the latest ones in the `/certs` folder on the host.
 
-This repository was forked from [Henri Dwyer's version](https://github.com/henridwyer/docker-letsencrypt-cron) but decides which certificates need renewing based on expiry date rather than doing them all whenever the cron job is run. This lets you manage many more domains without running into [Let's Encrypt's rate limits](https://community.letsencrypt.org/t/rate-limits-for-lets-encrypt/6769), as long as you stagger them out. Also, on first run it will generate unique Diffie–Hellman parameters to be used for securing your HTTPS server.
+This repository was forked from [Henri Dwyer's version](https://github.com/henridwyer/docker-letsencrypt-cron) but decides which certificates need renewing based on expiry date rather than doing them all whenever the cron job is run. This lets you manage many more domains without running into [Let's Encrypt's rate limits](https://letsencrypt.org/docs/rate-limits/), as long as you stagger them out. Also, on first run it will generate unique Diffie–Hellman parameters to be used for securing your HTTPS server.
 
 # Setup
 
