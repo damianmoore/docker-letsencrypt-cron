@@ -13,7 +13,7 @@ In `docker-compose.yml`, change the environment variables:
 
 # ACME Validation challenge
 
-To complete the certification process, you need to prove you are in control of the domain by passing the ACME validation challenge. This requires requests made to `http://YOUR_DOMAIN/.well-known/acme-challenge` to be forwarded to this container. Note that your ACME challenge server only runs for the brief few seconds that the request to Let's Encrypt's server is being made, so it can be a bit tricky to test.
+To complete the certification process, you need to prove you are in control of the domain by passing the ACME validation challenge. This requires requests made to `http://YOUR_DOMAIN/.well-known/acme-challenge` be forwarded to this container. Note that your ACME challenge server only runs for the brief few seconds that the request to Let's Encrypt's server is being made, so it can be a bit tricky to test.
 
 ## Nginx example
 
