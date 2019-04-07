@@ -23,8 +23,8 @@ If you use nginx as a reverse proxy, you can add the following to your configura
 server {
   listen              80;
   location '/.well-known/acme-challenge' {
-    default_type "text/plain";
-    proxy_pass http://letsencrypt:80;
+    default_type      "text/plain";
+    proxy_pass        http://letsencrypt:80;
   }
 }
 
@@ -48,7 +48,7 @@ If you need to debug a problem with your certificate generation process you shou
 docker exec letsencrypt STAGING=1 python /run_letsencrypt.py
 ```
 
-At 3AM every day, a cron job will start the script, renewing the certificates that have less than 28 days remaining.
+At 3AM every day, a cron job will start the script, renewing the certificates that have less than 28 days remaining. Note that most servers will not automatically notice when the certificate file changes so you will need to restart or reload them (e.g. via cron).
 
 # More information
 

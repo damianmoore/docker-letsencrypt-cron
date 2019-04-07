@@ -1,4 +1,4 @@
-FROM quay.io/letsencrypt/letsencrypt
+FROM certbot/certbot
 
 RUN mkdir /certs
 
