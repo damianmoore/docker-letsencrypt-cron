@@ -62,6 +62,7 @@ def renew_domains():
     if failure:
         exit(1)
 
+
 if __name__ == '__main__':
     ensure_dh_params()
     renew_domains()

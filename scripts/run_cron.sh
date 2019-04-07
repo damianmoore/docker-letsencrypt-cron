@@ -1,6 +1,6 @@
 #!/bin/sh
-# cron -f
 while :
 do
-   sleep 60
+    python /run_letsencrypt.py
+    sleep 86400
 done
