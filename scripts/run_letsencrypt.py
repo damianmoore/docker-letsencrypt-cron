@@ -1,8 +1,8 @@
 #!/usr/bin/env python
-import commands
 from datetime import datetime
 import os
 from shutil import copy
+import subprocess
 
 
 RENEWAL_DAYS = 28
@@ -14,7 +14,7 @@ def ensure_dh_params():
     dh_params_path = os.path.join(cert_copy_dir, 'dhparams.pem')
     if not os.path.exists(dh_params_path):
         print('Generating DH parameters, 2048 bit long safe prime. This will take a while.')
-        commands.getoutput('openssl dhparam -out {} 2048'.format(dh_params_path))
+        subprocess.run(f'openssl dhparam -out {dh_params_path} 2048', shell=True)
 
 
 def renew_domains():
@@ -31,7 +31,7 @@ def renew_domains():
         if not os.path.exists(cert_path):
             generate = True
         else:
-            expiry_date = commands.getoutput('openssl x509 -noout -in {} -dates'.format(cert_path))
+            expiry_date = subprocess.getoutput(f'openssl x509 -noout -in {cert_path} -dates')
             expiry_date = expiry_date.split('\n')[1].replace('notAfter=', '')
             expiry_date = datetime.strptime(expiry_date, '%b %d %H:%M:%S %Y %Z')
             if (expiry_date - datetime.now()).days <= RENEWAL_DAYS:
@@ -40,18 +40,18 @@ def renew_domains():
         if generate:
             print("Running letsencrypt for {}".format(domain))
 
-            server_param = '--server https://acme-v01.api.letsencrypt.org/directory'
+            server_param = ''
             if bool(os.environ.get('STAGING', False)):
                 server_param = '--staging'
 
-            exit_code, result = commands.getstatusoutput('certbot \
+            exit_code, result = subprocess.getstatusoutput(f'certbot \
                 --standalone \
                 --preferred-challenges http \
                 --agree-tos -t \
-                --renew-by-default {} \
+                --renew-by-default {server_param} \
                 --email $EMAIL \
-                -d {} \
-                certonly'.format(server_param, domain))
+                -d {domain} \
+                certonly')
             if exit_code > 0:
                 print(result)
                 failure = True
